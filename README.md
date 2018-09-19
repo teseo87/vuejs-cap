@@ -198,3 +198,72 @@ Y reflejarlo accediendo a la nueva variable de estado
 </li>
 </ul>
 ```
+# Eventos pag03.html
+
+La directiva v-on nos permite capturar eventos por ejemplo relacionados a un botón y ejecutar un código javascript.
+
+```html
+<span>Mensaje: <span v-text="message"></span> <button v-on:click="message = message.length">Msj Length</button></span>
+```
+Tambien puede usarse una versió abreviada utilizandop el @ en lugar del v-on
+
+```html
+<span>Mensaje: <span v-text="message"></span> <button @click="message = message.length">Msj Length</button></span>
+```
+Para agregar funciones y poder sacar ese código del html, podemos usar la directiva methods dentro del objeto de vue.js, que a la ves va a ser un objeto que permite definir los métodos necesarios.
+
+```javascript
+<script type="text/javascript">
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hola !!',
+    
+    // todos : ['Tarea 1', 'Tarea 2']
+
+    // todos : [
+    // {titulo : 'Tarea1'},
+    // {titulo : 'Tarea2'},
+    // {titulo : 'Tarea3'}
+    // ]
+    
+    todos : [
+    {titulo : 'Tarea1', completed : true},
+    {titulo : 'Tarea2', completed : false},
+    {titulo : 'Tarea3', completed : true}
+    ]
+
+  },
+  methods : {
+    contar: function () {
+      this.message = this.message.length;
+    }
+  }
+});
+
+</script>
+```
+
+Luego la forma de invocarlo en el html será:
+
+```html
+<span>Mensaje: <span v-text="message"></span> <button @click="contar">Msj Length</button></span>
+```
+Podemos en base a esta manipulación de eventos, agregar botones para el cambio de estados de las tareas:
+
+```html
+<ul class="list-group">
+    <li class="list-group-item" v-for="todo in todos">
+      <!-- {{ todo }} -->
+      <!-- {{ todo.titulo }} -->
+      <span v-text='todo.titulo'></span>
+      <small v-if='todo.completed'>Completa</small>
+      <small v-else>Incompleta</small>
+      <span style="float:right;">
+      <button type="button" class="btn btn-warning" @click="todo.completed = false" v-if="todo.completed">Revertir</button>
+      <button type="button" class="btn btn-success" @click="todo.completed = true" v-else>Completar</button>
+      </span>
+    </li>
+  </ul>
+```
