@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Vue.js</title>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<link rel="stylesheet" href="css/bootstrap.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="app">
+
+<!--   <span>{{message}}</span>
+  <br>
+  <span v-show="message">Intro: <span v-text="'Con v-show' + message"></span></span>
+  <br>
+  <span v-if="message">Intro: <span v-text="'Con v-if' + message"></span></span>
+  <br>
+  <span v-show="message.length > 2">Intro: <span v-text="message"></span></span>
+  <br>
+  <span v-if="message">Intro: <span v-text="'Con v-if' + message"></span></span>
+  <span v-else>Ingrese información en el campo</span>
+  <br>
+  <span v-text="'Intro: ' + message"></span>
+  <br>
+  <input type="text" v-model='message'> -->
+
+  <!-- <span>Mensaje: <span v-text="message"></span> <button v-on:click="message = message.length">Msj Length</button></span>
+  <br>
+  <span>Mensaje: <span v-text="message"></span> <button @click="message = message.length">Msj Length</button></span>
+  <br> -->
+  <br>
+  <h3>Lista de Tareas</h3>
+  <br>
+
+  <ul class="list-group">
+    <li class="list-group-item" v-for="todo in todos">
+      <!-- {{ todo }} -->
+      <!-- {{ todo.titulo }} -->
+      <span v-text='todo.titulo'></span>
+      <small v-if='todo.completed'>Completa</small>
+      <small v-else>Incompleta</small>
+      <span style="float:right;">
+      <button type="button" class="btn btn-warning" @click="todo.completed = false" v-if="todo.completed">Revertir</button>
+      <button type="button" class="btn btn-success" @click="todo.completed = true" v-else>Completar</button>
+      </span>
+    </li>
+  </ul>
+
+</div>
+
+</div>
+
+</body>
+
+<script type="text/javascript">
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hola !!',
+    
+    // todos : ['Tarea 1', 'Tarea 2']
+
+    // todos : [
+    // {titulo : 'Tarea1'},
+    // {titulo : 'Tarea2'},
+    // {titulo : 'Tarea3'}
+    // ]
+    
+    todos : [
+    {titulo : 'Tarea1', completed : true},
+    {titulo : 'Tarea2', completed : false},
+    {titulo : 'Tarea3', completed : true}
+    ]
+
+  },
+  methods : {
+    contar: function () {
+      this.message = this.message.length;
+    }
+  }
+});
+
+</script>
+
+
+</html>
