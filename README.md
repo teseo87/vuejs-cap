@@ -267,3 +267,72 @@ Podemos en base a esta manipulación de eventos, agregar botones para el cambio 
     </li>
   </ul>
 ```
+
+# Propiedades calculadas pag04-2.html
+
+Permiten optimizar el llanmado a funciones, de modo que se guarda el resultado de la función en memoria y no se ejecutan nuevamente, hasta tanto no exista un cambio en algun elemento.
+
+Se definen en la sección computed del objeto vue:
+
+```javascript
+<script type="text/javascript">
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hola !!',
+    
+    // todos : ['Tarea 1', 'Tarea 2']
+
+    // todos : [
+    // {titulo : 'Tarea1'},
+    // {titulo : 'Tarea2'},
+    // {titulo : 'Tarea3'}
+    // ]
+    
+    todos : [
+    {titulo : 'Tarea1', completed : true},
+    {titulo : 'Tarea2', completed : false},
+    {titulo : 'Tarea3', completed : true}
+    ]
+
+  },
+
+  methods : {
+    contar: function () {
+      this.message = this.message.length;
+    },
+    contarCompletas1: function () {
+      return this.todos.filter(function(todo) {return todo.completed;}).length;
+    },
+    contarIncompletas1: function () {
+      return this.todos.filter(function(todo) {return ! todo.completed;}).length;
+    }
+  },
+
+  computed : {
+
+    contarCompletas: function () {
+      console.log("contarCompletas");
+      return this.todos.filter(function(todo) {return todo.completed;}).length;
+    },
+    contarIncompletas: function () {
+      console.log("contarIncompletas");
+      return this.todos.filter(function(todo) {return ! todo.completed;}).length;
+    }
+
+
+  }
+
+});
+
+</script>
+```
+Luego se invoca como una propiedad y no una función
+
+```html
+<h3>Lista de Tareas</h3>
+<h3>Tareas completas: <span v-text="contarCompletas"></span></h3>
+<h3>Tareas incompletas: <span v-text="contarIncompletas"></span></h3>
+<br>
+```
