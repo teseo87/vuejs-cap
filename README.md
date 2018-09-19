@@ -1,4 +1,5 @@
 # Repositorio vuejs-cap
+
 Capacitación en Vue.js
 Cooperativa de Software Libre Geneos
 
@@ -6,25 +7,30 @@ Cooperativa de Software Libre Geneos
 
 En primer lugar la directiva html para incluir en nuestra página vue.js es:
 
+```
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
+```
 
 Luego la forma de utilizarlo es la siguiente, dentro del html definimos un div por ejemplo app para delimitar el elemento del dom en el cual vue.js va a funcionar, en este caso el div app.
 
+```html
 <div id="app">
 </div>
 <h1>Vue.js no va a tener acceso a este nivel</h1>
-
+```
 
 Definimos en javascript una instancia de vue como un objeto
 
 Indicamos dentro de que elemento del dom vue.js va a funcionar mediante la directiva el, en este caso el div app
 
+```javascript
 <script>
 var app = new Vue({
 
   	el: '#app'
 })
 </script>
+```
 
 Para pasar los datos con los cuales va a poder trabajar vue usamos data que será un objeto. Por ejemplo si tenemos la varianle message, la definimos y la usamos en html mediante la sintaxis {{ message }}
 
