@@ -38,30 +38,13 @@
   <span>Mensaje: <span v-text="message"></span> <button @click="message = message.length">Msj Length</button></span>
   <br> -->
   <br>
-  <h3>Lista de Tareas</h3>
+  <h3>Tarjetas</h3>
   <br>
 
-  <ul class="list-group">
-    <li class="list-group-item" v-for="todo in todos">
-      <!-- {{ todo }} -->
-      <!-- {{ todo.titulo }} -->
-      <span v-text='todo.titulo'></span>
-      <small v-if='todo.completed'>Completa</small>
-      <small v-else>Incompleta</small>
-      <span style="float:right;">
-      <button type="button" class="btn btn-warning" @click="todo.completed = false" v-if="todo.completed">Revertir</button>
-      <button type="button" class="btn btn-success" @click="todo.completed = true" v-else>Completar</button>
-      <button type="button" class="btn btn-danger" @click="eliminar(todo)">Out</button>
-      </span>
-    </li>
-    <!-- 
-    Si usamos v-model, el valor nos queda referenciado con la variable nueva que luego podemos usar en el componente.
-     -->
-    <li class="list-group-item">
-      <input type="text" v-model="nueva" v-on:keyup.enter="agregar(this)" placeholder="Que queres hacer?">
-      </span>
-    </li>
-  </ul>
+  <tarjeta name="Puntajes"></tarjeta>
+  <tarjeta name="Reputación"></tarjeta>
+  <tarjeta name="Comentarios"></tarjeta>
+  <!-- <tarjeta></tarjeta> -->
 
 </div>
 
@@ -71,38 +54,32 @@
 
 <script type="text/javascript">
 
+Vue.component('tarjeta', {
+  props: ['name'],
+  template:'<span style="float:right;"><div class="card" style="width: 18rem;"><div class="card-body"><h5 class="card-title">{{ name }} de {{ app.nombre }} {{ app.apellido }}</h5><p class="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div></div><br><input v-model="app.nombre"><br><input v-model="app.apellido"></span>',
+  data: function () {
+    return  {
+      app: {
+        nombre: "Fulano",
+        apellido: "De Tal"
+      }
+    } 
+  }
+}) 
+
 var app = new Vue({
   el: '#app',
   data: {
     message: 'Hola !!',
-    nueva: '',
-    
-    // todos : ['Tarea 1', 'Tarea 2']
 
-    // todos : [
-    // {titulo : 'Tarea1'},
-    // {titulo : 'Tarea2'},
-    // {titulo : 'Tarea3'}
-    // ]
-    
     todos : [
     {titulo : 'Tarea1', completed : true},
     {titulo : 'Tarea2', completed : false},
     {titulo : 'Tarea3', completed : true}
     ]
 
-  },
-  methods : {
-    contar: function () {
-      this.message = this.message.length;
-    },
-    agregar: function () {
-      this.todos.push({titulo : this.nueva, completed : false});
-    },
-    eliminar: function (todo) {
-      this.todos.splice(this.todos.indexOf(todo),1);
-    }
   }
+
 });
 
 </script>

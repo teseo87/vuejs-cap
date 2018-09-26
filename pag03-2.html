@@ -51,7 +51,7 @@
       <span style="float:right;">
       <button type="button" class="btn btn-warning" @click="todo.completed = false" v-if="todo.completed">Revertir</button>
       <button type="button" class="btn btn-success" @click="todo.completed = true" v-else>Completar</button>
-      <button type="button" class="btn btn-danger" @click="eliminar(todo)">Out</button>
+      <button type="button" class="btn btn-danger" @click="eliminar(todo)">Eliminar</button>
       </span>
     </li>
     <!-- 
@@ -62,6 +62,12 @@
       </span>
     </li>
   </ul>
+
+  <br>
+  <!-- 
+  Solo se muestra si hay tareas, para lo que usamos la directiva v-if
+   -->
+  <h6 v-if="todos.length">Cantidad de tareas: {{ todos.length }} | Completas: {{ completedTasks }} | Incompletas {{ incompletedTasks }}</h6>
 
 </div>
 
@@ -92,16 +98,43 @@ var app = new Vue({
     ]
 
   },
+
+  // Incorporamos computed task (a diferencia de las funciones evita que se llame salvo que una estructura de su dependecnia por ejemplo todos se modifique).
+
+  computed: {
+    completedTasks: function () {
+      return this.todos.filter(function (todo) {
+        return todo.completed;
+      }).length;
+    },
+    incompletedTasks: function () {
+      return this.todos.filter(function (todo) {
+        return ! todo.completed;
+      }).length;
+    }    
+  },
+
   methods : {
     contar: function () {
       this.message = this.message.length;
     },
     agregar: function () {
       this.todos.push({titulo : this.nueva, completed : false});
+      this.nueva = "";
     },
     eliminar: function (todo) {
       this.todos.splice(this.todos.indexOf(todo),1);
-    }
+    },
+    // completedTasks: function () {
+    //   return this.todos.filter(function (todo) {
+    //     return todo.completed;
+    //   }).length;
+    // },
+    // incompletedTasks: function () {
+    //   return this.todos.filter(function (todo) {
+    //     return ! todo.completed;
+    //   }).length;
+    // }
   }
 });
 
