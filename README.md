@@ -336,3 +336,105 @@ Luego se invoca como una propiedad y no una función
 <h3>Tareas incompletas: <span v-text="contarIncompletas"></span></h3>
 <br>
 ```
+
+# Componentes pag05.html
+
+Los componentes en vue son análogos a los widgets, que nos permiten encapsular código html y javascript para ser reutilizado.
+
+Los componentes se declaran referenciando el nombre del tag que representa ese componente en nuestro código, por ejemplo user, siendo el contenido mínimo el template o plantilla con el código a mostrar.
+
+```javascript
+Vue.component('user', {
+  template:'<div>Component 1</div>' 
+}) 
+```
+Uso del componente en nuestro código:
+
+```html
+<h3>Lista de Usuarios</h3>
+<br>
+<user></user>
+<user></user>
+<user></user>
+<user></user>
+```
+Ahora vamos a ver como pasar información a nuestros componentes por medio de propiedades.
+
+```html
+<user name="Juana"></user>
+```
+La forma de declararlo en nuestro componente es por medio de props.
+
+```javascript
+Vue.component('user', {
+  // Declaración del props llamado name
+  props: ['name'],
+  //Ahora podemos usar name como habiltualmente lo hacemos
+  template: '<span>{{ name }}</span>'
+})
+```
+
+Uso de objeto de datos internos en los componentes.
+
+Muchas de las opciones disponibles en la instancia de Vue se pueden utilizar de igual forma en en los componentes. Una excepción a esta funcionalidad es el objeto data. Cuando vemos muchos de los ejemplos de Vue, el objeto data usualmente es un objeto sencillo.
+
+new Vue({
+  el: '#greeting-panel',
+  data: {
+    input: 'Bienvenidos al Matrix'
+  }
+})
+
+Pero cuando trabajamos con componentes, debemos declarar el objeto data como una función. Esto debido a que al momento de crear los componentes esto se traduce en generar varias instancias del objeto Vue. Si utilizamos el objeto sin ser declarado como una función, estaremos compartiendo el objecto data a través de todas las instancias. Y esto no es algo que querramos en nuestro proyecto.
+
+
+```javascript
+Vue.component('tarjeta', {
+  props: ['name'],
+  template:'<span style="float:right;"><div class="card" style="width: 18rem;"><div class="card-body"><h5 class="card-title">{{ name }} de {{ app.nombre }} {{ app.apellido }}</h5><p class="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div></div><br><input v-model="app.nombre"><br><input v-model="app.apellido"></span>',
+  data: function () {
+    return  {
+      app: {
+        nombre: "Fulano",
+        apellido: "De Tal"
+      }
+    } 
+  }
+})
+```
+
+
+# vue-cli
+
+Es una herramienta de vue simple para craer esqueletos de proyectos Vue.js en base a plantillas. El propósito de las plantillas de proyectos oficiales de Vue, es proporcionar configuraciones de herramientas de desarrollo intuitivas para que los usuarios puedan comenzar con el código de la aplicación real lo más rápido posible.
+
+Para instalar vue-cli
+```
+npm install -g @vue/cli
+```
+
+Verificar si vue-cli se encuentra instalado
+```
+npm i -g vue-cli
+```
+
+Crear el esqueleto de uyna aplicación basada en webpack
+```
+vue init bootstrap-vue/webpack-simple my-project
+```
+
+Crear el esqueleto de uyna aplicación basada en webpack y bootstrap-vue
+```
+vue init bootstrap-vue/webpack-simple my-project
+```
+
+Instalar dependencias
+```
+cd my-project
+npm install
+```
+
+Levantar el servidor
+```
+npm run dev
+```
